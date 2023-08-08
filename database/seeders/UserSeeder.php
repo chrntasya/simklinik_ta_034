@@ -115,5 +115,19 @@ class UserSeeder extends Seeder
         $dokterarray3['role_id'] = 2;
         $userRole = UserRole::create($dokterarray3);
 
+         $lab = User::create([
+            'username' => 'lab',
+            'nama' => 'orang lab',
+            'email' => 'orang lab',
+            'tanggal_lahir' => '1971-03-02',
+            'jenis_kelamin' => 'L',
+            'nomor_telepon' => '+6285130408600',
+            'password' => bcrypt('lab'),
+        ]);
+
+        $labarray['user_id'] = $lab->id;
+        $labarray['role_id'] = 5;
+        $userRole = UserRole::create($labarray);
+
     }
 }
