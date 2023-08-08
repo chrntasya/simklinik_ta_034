@@ -1,0 +1,63 @@
+@extends('layouts/header_laboratorium')
+@section('content')
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Create Data Lab</h1>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <div class="container-fluid">
+        @if ($message = Session::get('success'))
+                    <div class="alert alert-success" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <strong>Success!</strong> {{ $message }}
+                    </div>
+                @endif
+                @if ($message = Session::get('error'))
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <strong>Error!</strong> {{ $message }}
+                    </div>
+                @endif
+        <div class="card">
+            <div class="card-header">
+                <span><strong>Diagnosa</strong>  : {{$lab->rujukan->rekamedis->diagnosa}}</span> <br>
+                <span><strong>Tindakan</strong> : {{$lab->rujukan->rekamedis->tindakan}}</span> <br>
+                <span><strong>Dokter</strong> : {{$lab->rujukan->rekamedis->dokter->nama}}</span> <br>
+                <span><strong>Pasien</strong> : {{$lab->rujukan->rekamedis->pasien->nama}}</span> <br>
+
+            </div>
+            <div class="card-body">
+                <form action="{{ route('lab.update', ['id'=>$lab->id]) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="rujukan_id" value="{{$lab->rujukan_id}}">
+                    <div class="form-group">
+                        <img src="{{ asset('storage/file_lab/' . $lab->file) }}" width="100px" height="100px" alt=""> <br>
+                        <label for="">Foto Lab</label>
+                        <input type="file" name="file" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Deskripsi</label>
+                       <textarea name="deskripsi" class="form-control" id="" cols="30" rows="5">{{$lab->deskripsi}}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        <button type="clear" class="btn btn-default btn-sm">Clear</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+@endsection
