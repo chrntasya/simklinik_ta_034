@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth'], "prefix" => "/admin"], function () {
     Route::resource('user_dokter', App\Http\Controllers\DokterController::class);    
     Route::resource('user_pasien', App\Http\Controllers\PasienController::class);   
     Route::resource('user_apoteker', App\Http\Controllers\ApotekerController::class);
+    Route::resource('user_lab', App\Http\Controllers\UserLabController::class);
     Route::resource('spesialis', App\Http\Controllers\SpesialisController::class);
 
     Route::get('jadwal_dokter', [App\Http\Controllers\DokterHomeController::class, 'jadwal_dokter' ])->name('jadwal_dokter');
@@ -160,3 +161,24 @@ Route::group(['middleware' => ['auth'], "prefix" => "/apoteker"], function(){
 
 
 });
+
+Route::group(['middleware' => ['auth'], "prefix" => "/laboratorium"], function(){
+    Route::get('/dashboard', [App\Http\Controllers\LaboratoriumHomeController::class, 'index'])->name('laboratorium_home');
+
+    Route::get('listrujukan', [App\Http\Controllers\LaboratoriumController::class,'listrujukan'])->name('lab.listrujukan');
+    Route::get('listrujukan/{id}/create', [App\Http\Controllers\LaboratoriumController::class,'create'])->name('lab.listrujukan.create');
+
+    Route::get('', [App\Http\Controllers\LaboratoriumController::class,'index'])->name('lab.index');
+
+    Route::post('store', [App\Http\Controllers\LaboratoriumController::class,'store'])->name('lab.listrujukan.store');
+
+    Route::get('/{id}/edit', [App\Http\Controllers\LaboratoriumController::class,'edit'])->name('lab.edit');
+    Route::post('/{id}/update', [App\Http\Controllers\LaboratoriumController::class,'update'])->name('lab.update');
+
+    Route::delete('/delete', [App\Http\Controllers\LaboratoriumController::class,'delete'])->name('lab.destroy');
+
+
+
+
+});
+
